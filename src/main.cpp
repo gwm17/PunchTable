@@ -1,5 +1,6 @@
 #include "MassLookup.h"
 #include "PunchTable.h"
+#include "ElossTable.h"
 #include "GenerateTable.h"
 #include "catima/gwm_integrators.h"
 #include <string>
@@ -12,41 +13,32 @@
 int main(int argc, char** argv)
 {
 
-	std::string options = "";
-	if(argc == 2)
+	bool test = true;
+	if(argc != 2)
 	{
-		options = argv[1];
+		std::cerr<<"PunchTable requires an input file!"<<std::endl;
+		return 1;
 	}
 
-	PunchTable::TableParameters params;
+	PunchTable::TableParameters params = PunchTable::GetTableParameters(argv[1]);
 
-	params.projectileA = 1;
-	params.projectileZ = 1;
-
-	params.minKE = 8.23;
-	params.maxKE = 25.0;
-	params.stepKE = 0.01;
-
-	params.minTheta = 0.0;
-	params.maxTheta = 75.0;
-	params.stepTheta = 0.1;
-
-	double thicknessSABRE = 500.0 * 1.0e-4 * 2.3216 * 1.0e6; //500 um thick times density of Si-> ug/cm^2
-
-	params.targetZ = {{14}};
-	params.targetA = {{28}};
-	params.targetS = {{1}};
-	params.targetThickness = {thicknessSABRE};
-
-	params.filename = "tables/test.ptab";
-
-	if(options == "--make-table" || options == "")
+	if(params.tableType == "PunchTable")
 	{
-		PunchTable::GenerateTable(params);
+		PunchTable::GeneratePunchTable(params);
+	}
+	else if(params.tableType == "ElossTable")
+	{
+		PunchTable::GenerateElossTable(params);
+	}
+	else
+	{
+		std::cerr<<"Unrecognized table type "<<params.tableType<<std::endl;
+		return 1;
 	}
 
-	if(options == "--test" || options == "")
+	if(test && params.tableType == "PunchTable")
 	{
+		std::cout<<std::endl;
 		std::cout<<"-------------Testing---------"<<std::endl;
 		PunchTable::PunchTable table(params.filename);
 		std::cout<<"Is the table valid? "<<table.IsValid()<<std::endl;
@@ -59,4 +51,19 @@ int main(int argc, char** argv)
 				 <<" and the deposited energy is "<<ke_dep<<" MeV"<<std::endl;
 		std::cout<<"-----------------------------"<<std::endl;
 	}
+	if(test && params.tableType == "ElossTable")
+	{
+		std::cout<<std::endl;
+		std::cout<<"-------------Testing---------"<<std::endl;
+		PunchTable::ElossTable table(params.filename);
+		std::cout<<"Is the table valid? "<<table.IsValid()<<std::endl;
+		double ke_test = 14.5; //MeV
+		double theta_test = 35.5*M_PI/180.0;
+		double eloss = table.GetEnergyLoss(theta_test, ke_test);
+		std::cout<<"For a "<<PunchTable::MassLookup::GetInstance().FindSymbol(params.projectileZ, params.projectileA)<<" with kinetic energy "<<ke_test<<" MeV "
+				 <<"calculate an energy loss of "<<eloss<<" MeV. Please compare to favorite tool (LISE, SRIM, etc.)"<<std::endl;
+		std::cout<<"-----------------------------"<<std::endl;
+	}
+
+	return 0;
 }

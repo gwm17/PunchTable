@@ -1,0 +1,11 @@
+TableType: ElossTable
+MinKE(MeV): 0.2 MaxKE(MeV): 20.0 StepKE(MeV): 0.01
+MinTheta(deg): 0.0 MaxTheta(deg): 75.0 StepTheta(deg): 0.1
+ProjectileZ: 1 ProjectileA: 1
+begin_materials
+    begin_material
+        thickness: 116830.0
+        73 181 1
+    end_material
+end_materials
+OutputFilename: tables/ta_eloss.etab

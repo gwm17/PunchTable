@@ -8,6 +8,8 @@ target_sources(PunchTable PRIVATE
     MassLookup.cpp
     PunchTable.h
     PunchTable.cpp
+    ElossTable.h
+    ElossTable.cpp
     GenerateTable.h
     GenerateTable.cpp
     main.cpp
