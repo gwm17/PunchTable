@@ -14,7 +14,7 @@ namespace PunchTable {
 		PunchTable(const std::string& filename);
 		~PunchTable();
 		void ReadFile(const std::string& filename);
-		double GetInitialKineticEnergy(double theta_incident, double e_deposited);
+		double GetInitialKineticEnergy(double theta_incident, double e_deposited); //radians, MeV
 		inline bool IsValid() const { return m_validFlag; }
 
 	private:

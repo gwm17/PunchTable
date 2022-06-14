@@ -10,6 +10,7 @@ target_sources(PunchTable PRIVATE
     PunchTable.cpp
     GenerateTable.h
     GenerateTable.cpp
+    main.cpp
 )
 
 target_link_libraries(PunchTable catima)

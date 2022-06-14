@@ -190,7 +190,7 @@ namespace PunchTable {
 			}
 			else if (i == (m_splines.size() -1))
 			{
-				//std::cerr<<"Error at CubicSpline::Evaluate! Input x value: "<<x<<" is not within the spline range min: "<<splines[0].x1<<" max: "<<splines[splines.size()-1].x2<<std::endl;
+				std::cerr<<"Error at CubicSpline::Evaluate! Input x value: "<<x<<" is not within the spline range min: "<<m_splines[0].x1<<" max: "<<m_splines[m_splines.size()-1].x2<<std::endl;
 				return 0.0;
 			}
 		}

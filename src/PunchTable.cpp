@@ -34,12 +34,15 @@ namespace PunchTable {
 		std::vector<double> energyIn, energyDep;
 
 		std::getline(input, junk);
-		input>>junk>>thickness;
+		while(junk != "---------------------------------")
+		{
+			std::getline(input, junk);
+		}
 		input>>junk>>m_thetaMin>>junk>>m_thetaMax>>junk>>m_thetaStep;
 		std::getline(input, junk);
 		std::getline(input, junk);
 		std::getline(input, junk);
-
+		std::getline(input, junk);
 		while(input>>junk)
 		{
 			if(junk == "begin_theta")
@@ -87,7 +90,6 @@ namespace PunchTable {
 			return 0.0;
 		}
 
-		float thetaf_bin = (theta_incident - m_thetaMin)/m_thetaStep;
 		int theta_bin = (theta_incident - m_thetaMin)/m_thetaStep;
 
 		std::cout<<"theta bin: "<<theta_bin<<" theta_inc: "<<theta_incident<<std::endl;
@@ -97,6 +99,7 @@ namespace PunchTable {
 			double initialE =  m_splines[theta_bin].Evaluate(e_deposited);
 			if(initialE == 0.0) //Not in the spline, stopped completely
 			{
+				std::cout<<"here"<<std::endl;
 				return e_deposited;
 			}
 			else
