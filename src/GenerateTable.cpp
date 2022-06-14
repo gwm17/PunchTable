@@ -2,6 +2,7 @@
 #include "MassLookup.h"
 #include <fstream>
 #include <iostream>
+#include <iomanip>
 #include <cmath>
 
 #include "catima/gwm_integrators.h"
