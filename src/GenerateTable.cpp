@@ -270,7 +270,7 @@ namespace PunchTable {
                     flush_count++;
                     std::cout<<"\rPercent of data generated: "<<flush_count*flush_percent*100.0<<"%"<<std::flush;
                 }
-                ke = params.maxKE - j*params.stepKE;
+                ke = params.minKE + j*params.stepKE;
                 projectile.T = ke/projectile.A;
                 eloss = 0.0;
                 for(size_t k=0; k<nlayers; k++)

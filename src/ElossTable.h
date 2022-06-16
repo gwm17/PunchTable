@@ -21,7 +21,7 @@ namespace PunchTable {
         ~ElossTable();
 
         void ReadFile(const std::string& filename);
-        double GetEnergyLoss(double finalEnergy, double theta_incident);
+        double GetEnergyLoss(double thetaIncident, double finalEnergy);
 
         inline const bool IsValid() const { return m_isValid; }
 

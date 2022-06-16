@@ -76,23 +76,23 @@ namespace PunchTable {
 		m_isValid = true;
     }
 
-    double ElossTable::GetEnergyLoss(double finalEnergy, double theta_incident)
+    double ElossTable::GetEnergyLoss(double thetaIncident, double finalEnergy)
     {
-        theta_incident /= s_deg2rad;
+        thetaIncident /= s_deg2rad;
 		if(!m_isValid)
 		{
 			std::cerr<<"ElossTable not initialized at GetEnergyLoss()"<<std::endl;
 			return 0.0;
 		}
-		else if(theta_incident < m_thetaMin || theta_incident > m_thetaMax)
+		else if(thetaIncident < m_thetaMin || thetaIncident > m_thetaMax)
 		{
 			std::cerr<<"Theta incident outside of range of calculated values for ElossTable::GetEnergyLoss()"<<std::endl;
 			return 0.0;
 		}
 
-		int theta_bin = (theta_incident - m_thetaMin)/m_thetaStep;
+		int theta_bin = (thetaIncident - m_thetaMin)/m_thetaStep;
 
-		//std::cout<<"theta bin: "<<theta_bin<<" theta_inc: "<<theta_incident<<std::endl;
+		//std::cout<<"theta bin: "<<theta_bin<<" theta_inc: "<<thetaIncident<<std::endl;
 
 		if(m_splines[theta_bin].IsValid())
 		{

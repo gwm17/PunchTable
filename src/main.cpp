@@ -14,6 +14,7 @@ int main(int argc, char** argv)
 {
 
 	bool test = true;
+	bool testonly = false;
 	if(argc != 2)
 	{
 		std::cerr<<"PunchTable requires an input file!"<<std::endl;
@@ -22,21 +23,21 @@ int main(int argc, char** argv)
 
 	PunchTable::TableParameters params = PunchTable::GetTableParameters(argv[1]);
 
-	if(params.tableType == "PunchTable")
+	if(!testonly && params.tableType == "PunchTable")
 	{
 		PunchTable::GeneratePunchTable(params);
 	}
-	else if(params.tableType == "ElossTable")
+	else if(!testonly && params.tableType == "ElossTable")
 	{
 		PunchTable::GenerateElossTable(params);
 	}
-	else
+	else if(!testonly)
 	{
 		std::cerr<<"Unrecognized table type "<<params.tableType<<std::endl;
 		return 1;
 	}
 
-	if(test && params.tableType == "PunchTable")
+	if((test || testonly) && params.tableType == "PunchTable")
 	{
 		std::cout<<std::endl;
 		std::cout<<"-------------Testing---------"<<std::endl;
@@ -51,17 +52,17 @@ int main(int argc, char** argv)
 				 <<" and the deposited energy is "<<ke_dep<<" MeV"<<std::endl;
 		std::cout<<"-----------------------------"<<std::endl;
 	}
-	if(test && params.tableType == "ElossTable")
+	if((test || testonly) && params.tableType == "ElossTable")
 	{
 		std::cout<<std::endl;
 		std::cout<<"-------------Testing---------"<<std::endl;
 		PunchTable::ElossTable table(params.filename);
 		std::cout<<"Is the table valid? "<<table.IsValid()<<std::endl;
-		double ke_test = 14.5; //MeV
+		double ke_test = 0.5; //MeV
 		double theta_test = 35.5*M_PI/180.0;
 		double eloss = table.GetEnergyLoss(theta_test, ke_test);
 		std::cout<<"For a "<<PunchTable::MassLookup::GetInstance().FindSymbol(params.projectileZ, params.projectileA)<<" with kinetic energy "<<ke_test<<" MeV "
-				 <<"calculate an energy loss of "<<eloss<<" MeV. Please compare to favorite tool (LISE, SRIM, etc.)"<<std::endl;
+				 <<"calculate an energy loss of "<<eloss<<" MeV for an incident angle of "<<theta_test*180.0/M_PI<<" degrees. Please compare to favorite tool (LISE, SRIM, etc.)"<<std::endl;
 		std::cout<<"-----------------------------"<<std::endl;
 	}
 
