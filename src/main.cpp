@@ -43,6 +43,8 @@ int main(int argc, char** argv)
 		std::cout<<"-------------Testing---------"<<std::endl;
 		PunchTable::PunchTable table(params.filename);
 		std::cout<<"Is the table valid? "<<table.IsValid()<<std::endl;
+		std::cout<<"Table Projectile: "<<table.GetProjectile()<<std::endl;
+		std::cout<<"Table Material: "<<table.GetMaterial()<<std::endl;
 		double ke_test = 14.5; //MeV
 		double theta_test = 35.5*M_PI/180.0;
 		double ke_dep = PunchTable::GetEnergyDeposited(params, theta_test, ke_test);
@@ -58,6 +60,8 @@ int main(int argc, char** argv)
 		std::cout<<"-------------Testing---------"<<std::endl;
 		PunchTable::ElossTable table(params.filename);
 		std::cout<<"Is the table valid? "<<table.IsValid()<<std::endl;
+		std::cout<<"Table Projectile: "<<table.GetProjectile()<<std::endl;
+		std::cout<<"Table Material: "<<table.GetMaterial()<<std::endl;
 		double ke_test = 0.5; //MeV
 		double theta_test = 35.5*M_PI/180.0;
 		double eloss = table.GetEnergyLoss(theta_test, ke_test);

@@ -106,18 +106,21 @@ namespace PunchTable {
         }
 		output<<std::setprecision(5);
 
-		output<<"Materials: "<<std::endl;;
+        output<<"---------------------------------"<<std::endl;
+        output<<"Projectile: "<<masses.FindSymbol(params.projectileZ, params.projectileA)<<std::endl;
+		output<<"---------------------------------"<<std::endl;
+		output<<"Materials: "<<std::endl;
 		for(size_t i=0; i<depLayer; i++)
         {
-            output<<"\tGoing through: ";
+            output<<"\tGoingThrough: ";
             for(size_t j=0; j<params.targetZ[i].size(); j++)
 			    output<<masses.FindSymbol(params.targetZ[i][j], params.targetA[i][j])<<params.targetS[i][j];
-            output<<" ("<<params.targetThickness[i]<<" ug/cm2)"<<std::endl;
+            output<<" ("<<params.targetThickness[i]<<"ug/cm2)"<<std::endl;
         }
-        output<<"\tDeposting into: ";
+        output<<"\tDepostingInto: ";
         for(size_t i=0; i<params.targetZ[depLayer].size(); i++)
             output<<masses.FindSymbol(params.targetZ[depLayer][i], params.targetA[depLayer][i])<<params.targetS[depLayer][i];
-        output<<" ("<<params.targetThickness[depLayer]<<" ug/cm2)"<<std::endl;
+        output<<" ("<<params.targetThickness[depLayer]<<"ug/cm2)"<<std::endl;
 		output<<"---------------------------------"<<std::endl;
 
 		output<<"IncidentAngleRange(deg): "<<params.minTheta<<" to "<<params.maxTheta<<" stepSize: "<<params.stepTheta<<std::endl;
@@ -232,13 +235,16 @@ namespace PunchTable {
         }
 		output<<std::setprecision(5);
 
+		output<<"---------------------------------"<<std::endl;
+        output<<"Projectile: "<<masses.FindSymbol(params.projectileZ, params.projectileA)<<std::endl;
+		output<<"---------------------------------"<<std::endl;
 		output<<"Materials: "<<std::endl;;
 		for(size_t i=0; i<nlayers; i++)
         {
-            output<<"\tGoing through: ";
+            output<<"\tGoingThrough: ";
             for(size_t j=0; j<params.targetZ[i].size(); j++)
 			    output<<masses.FindSymbol(params.targetZ[i][j], params.targetA[i][j])<<params.targetS[i][j];
-            output<<" ("<<params.targetThickness[i]<<" ug/cm2)"<<std::endl;
+            output<<" ("<<params.targetThickness[i]<<"ug/cm2)"<<std::endl;
         }
 		output<<"---------------------------------"<<std::endl;
 		output<<"IncidentAngleRange(deg): "<<params.minTheta<<" to "<<params.maxTheta<<" stepSize: "<<params.stepTheta<<std::endl;

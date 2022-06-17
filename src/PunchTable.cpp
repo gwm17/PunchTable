@@ -33,11 +33,18 @@ namespace PunchTable {
 		double value;
 		std::vector<double> energyIn, energyDep;
 
-		std::getline(input, junk);
-		while(junk != "---------------------------------")
+		input>>junk>>junk>>m_projectileString;
+		input>>junk>>junk;
+
+		while(input>>junk)
 		{
-			std::getline(input, junk);
+			if(junk == "---------------------------------")
+				break;
+			input>>junk;
+			m_materialString += junk;
+			input>>junk;
 		}
+		
 		input>>junk>>m_thetaMin>>junk>>m_thetaMax>>junk>>m_thetaStep;
 		std::getline(input, junk);
 		std::getline(input, junk);
